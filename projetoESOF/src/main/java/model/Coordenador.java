@@ -51,5 +51,11 @@ public class Coordenador implements Serializable{
 	public void setTelefone(String telefone) {
 		this.Telefone = telefone;
 	}
+	public String getCodigo() {
+		return Codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.Codigo = codigo;
+	}
 	
 }

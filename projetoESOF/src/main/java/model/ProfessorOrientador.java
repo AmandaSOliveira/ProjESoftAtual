@@ -41,7 +41,7 @@ public class ProfessorOrientador implements Serializable{
 		return Codigo;
 	}
 
-	protected void setCodigo(String codigo) {
+	public void setCodigo(String codigo) {
 		this.Codigo = codigo;
 	}
 
@@ -57,7 +57,7 @@ public class ProfessorOrientador implements Serializable{
 		return Email;
 	}
 
-	protected void setEmail(String email) {
+	public void setEmail(String email) {
 		this.Email = email;
 	}
 
@@ -65,7 +65,7 @@ public class ProfessorOrientador implements Serializable{
 		return Telefone;
 	}
 
-	protected void setFone(String foneProfessor) {
+	public void setFone(String foneProfessor) {
 		this.Telefone = foneProfessor;
 	}
 
@@ -81,7 +81,7 @@ public class ProfessorOrientador implements Serializable{
 		return Cpf;
 	}
 
-	protected void setCpf(String cpf) {
+	public void setCpf(String cpf) {
 		this.Cpf = cpf;
 	}
 	
