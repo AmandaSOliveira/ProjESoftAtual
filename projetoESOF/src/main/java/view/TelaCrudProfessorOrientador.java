@@ -121,7 +121,7 @@ public class TelaCrudProfessorOrientador extends JInternalFrame {
 						professor.setFone(txtPhone.getText());
 						professor.setCodigo(txtCode.getText());
 						professor.setCpf(txtCode.getText());
-						controle.inserir(professor);
+						//controle.inserir(professor);
 						JOptionPane.showMessageDialog(btnSave, "professor cadastrado.");
 					} else {
 						// alterar
