@@ -104,32 +104,45 @@ public class TelaCrudCoordenador extends JInternalFrame {
 		lblEmail.setBounds(10, 98, 90, 14);
 		panelFields.add(lblEmail);
 
+		JLabel lblPhone = new JLabel("Telefone : ");
+		lblPhone.setBounds(10, 129, 90, 14);
+		panelFields.add(lblPhone);
+
+		txtPhone = new JTextField();
+		txtPhone.setEnabled(false);
+		txtPhone.setColumns(10);
+		txtPhone.setBounds(92, 126, 197, 20);
+		panelFields.add(txtPhone);
+
 		btnSave = new JButton("Salvar");
 		btnSave.setEnabled(false);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (txtName.getText().length() < 5) {
-					JOptionPane.showMessageDialog(btnSave, "O nome precisa ter no m�nimo 5 caracteres!!!");
+					JOptionPane.showMessageDialog(btnSave, "O nome precisa ter no minimo 5 caracteres!!!");
 				} else {
-					// novo coordenador
-					if (coordenador == null) {
-						coordenador = new Coordenador();
-						coordenador.setNome(txtName.getText());
-						coordenador.setEmail(txtEmail.getText());
-						coordenador.setTelefone(txtPhone.getText());
-						coordenador.setCodigo(txtCode.getText());
-						controle.inserir(coordenador);
-						JOptionPane.showMessageDialog(btnSave, "Coordenador cadastrado.");
+					if (controle.buscarPorCodigo(txtCode.getText()) != null) {
+						JOptionPane.showMessageDialog(btnSave, "Já existe um usuário com este cpf!");
 					} else {
-						// alterar
-						coordenador.setNome(txtName.getText());
-						coordenador.setEmail(txtEmail.getText());
-						coordenador.setTelefone(txtPhone.getText());
-						controle.alterar(coordenador);
-						JOptionPane.showMessageDialog(btnSave, "Coordenador atualizado.");
+						// novo coordenador
+						if (coordenador == null) {
+							coordenador = new Coordenador();
+							coordenador.setNome(txtName.getText());
+							coordenador.setEmail(txtEmail.getText());
+							coordenador.setTelefone(txtPhone.getText());
+							coordenador.setCodigo(txtCode.getText());
+							controle.inserir(coordenador);
+							JOptionPane.showMessageDialog(btnSave, "Coordenador cadastrado.");
+						} else {
+							// alterar
+							coordenador.setNome(txtName.getText());
+							coordenador.setEmail(txtEmail.getText());
+							coordenador.setTelefone(txtPhone.getText());
+							controle.alterar(coordenador);
+							JOptionPane.showMessageDialog(btnSave, "Coordenador atualizado.");
+						}
+						definirEstadoConsulta();
 					}
-
-					definirEstadoConsulta();
 				}
 			}
 		});
@@ -145,16 +158,6 @@ public class TelaCrudCoordenador extends JInternalFrame {
 		btnCancel.setBounds(102, 160, 89, 23);
 		panelFields.add(btnCancel);
 
-		JLabel lblPhone = new JLabel("Telefone : ");
-		lblPhone.setBounds(10, 129, 90, 14);
-		panelFields.add(lblPhone);
-
-		txtPhone = new JTextField();
-		txtPhone.setEnabled(false);
-		txtPhone.setColumns(10);
-		txtPhone.setBounds(92, 126, 197, 20);
-		panelFields.add(txtPhone);
-
 		JPanel panelButtons = new JPanel();
 		panelButtons.setBounds(319, 36, 105, 194);
 		getContentPane().add(panelButtons);
@@ -165,7 +168,7 @@ public class TelaCrudCoordenador extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				definirEstadoEdicao();
 				limparCampos();
-				txtName.requestFocus();
+				txtCode.requestFocus();
 			}
 		});
 		btnInsert.setBounds(10, 13, 89, 23);
@@ -175,7 +178,7 @@ public class TelaCrudCoordenador extends JInternalFrame {
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				definirEstadoEdicao();
-				txtName.requestFocus();
+				txtCode.requestFocus();
 			}
 		});
 		btnUpdate.setEnabled(false);
@@ -209,7 +212,7 @@ public class TelaCrudCoordenador extends JInternalFrame {
 					txtPhone.setText(coordenador.getTelefone());
 					definirEstadoConsulta();
 				} else {
-					JOptionPane.showMessageDialog(null, "Nao existe coordenador com esse codigo");
+					JOptionPane.showMessageDialog(null, "Nao existe coordenador com esse cpf!");
 				}
 			}
 		});
@@ -232,6 +235,8 @@ public class TelaCrudCoordenador extends JInternalFrame {
 		limparCampos();
 		txtName.setEnabled(false);
 		txtEmail.setEnabled(false);
+		txtCode.setEnabled(false);
+		txtPhone.setEnabled(false);
 		btnInsert.setEnabled(true);
 		btnDelete.setEnabled(false);
 		btnUpdate.setEnabled(false);
@@ -242,6 +247,8 @@ public class TelaCrudCoordenador extends JInternalFrame {
 	private void definirEstadoEdicao() {
 		txtName.setEnabled(true);
 		txtEmail.setEnabled(true);
+		txtCode.setEnabled(true);
+		txtPhone.setEnabled(true);
 		btnInsert.setEnabled(false);
 		btnDelete.setEnabled(false);
 		btnUpdate.setEnabled(false);
@@ -252,6 +259,8 @@ public class TelaCrudCoordenador extends JInternalFrame {
 	private void definirEstadoConsulta() {
 		txtName.setEnabled(false);
 		txtEmail.setEnabled(false);
+		txtCode.setEnabled(false);
+		txtPhone.setEnabled(false);
 		btnInsert.setEnabled(true);
 		btnDelete.setEnabled(true);
 		btnUpdate.setEnabled(true);
@@ -263,5 +272,6 @@ public class TelaCrudCoordenador extends JInternalFrame {
 		txtCode.setText("");
 		txtName.setText("");
 		txtEmail.setText("");
+		txtPhone.setText("");
 	}
 }

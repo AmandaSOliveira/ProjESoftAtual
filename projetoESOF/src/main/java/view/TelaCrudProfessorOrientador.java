@@ -111,28 +111,35 @@ public class TelaCrudProfessorOrientador extends JInternalFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (txtName.getText().length() < 5) {
-					JOptionPane.showMessageDialog(btnSave, "O nome precisa ter no m�nimo 5 caracteres!!!");
+					JOptionPane.showMessageDialog(btnSave, "O nome precisa ter no minimo 5 caracteres!!!");
 				} else {
-					// novo professor
-					if (professor == null) {
-						professor = new ProfessorOrientador();
-						professor.setNome(txtName.getText());
-						professor.setEmail(txtEmail.getText());
-						professor.setFone(txtPhone.getText());
-						professor.setCodigo(txtCode.getText());
-						professor.setCpf(txtCode.getText());
-						//controle.inserir(professor);
-						JOptionPane.showMessageDialog(btnSave, "professor cadastrado.");
+					if (controle.buscarPorCodigo(txtCode.getText()) != null) {
+						JOptionPane.showMessageDialog(btnSave, "Já existe um usuário com este cpf!");
 					} else {
-						// alterar
-						professor.setNome(txtName.getText());
-						professor.setEmail(txtEmail.getText());
-						professor.setFone(txtPhone.getText());
-						controle.alterar(professor);
-						JOptionPane.showMessageDialog(btnSave, "professor atualizado.");
+						// novo professor
+						if (professor == null) {
+							professor = new ProfessorOrientador();
+							professor.setNome(txtName.getText());
+							professor.setEmail(txtEmail.getText());
+							professor.setFone(txtPhone.getText());
+							professor.setCodigo(txtCode.getText());
+							professor.setCpf(txtCode.getText());
+							professor.setLattes(txtLattes.getText());
+							// controle.inserir(professor);
+							JOptionPane.showMessageDialog(btnSave, "professor cadastrado.");
+						} else {
+							// alterar
+							professor.setNome(txtName.getText());
+							professor.setCodigo(txtCode.getText());
+							professor.setEmail(txtEmail.getText());
+							professor.setFone(txtPhone.getText());
+							professor.setCpf(txtCode.getText());
+							professor.setLattes(txtLattes.getText());
+							controle.alterar(professor);
+							JOptionPane.showMessageDialog(btnSave, "professor atualizado.");
+						}
+						definirEstadoConsulta();
 					}
-
-					definirEstadoConsulta();
 				}
 			}
 		});
@@ -178,7 +185,7 @@ public class TelaCrudProfessorOrientador extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				definirEstadoEdicao();
 				limparCampos();
-				txtName.requestFocus();
+				txtCode.requestFocus();
 			}
 		});
 		btnInsert.setBounds(10, 13, 89, 23);
@@ -188,7 +195,7 @@ public class TelaCrudProfessorOrientador extends JInternalFrame {
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				definirEstadoEdicao();
-				txtName.requestFocus();
+				txtCode.requestFocus();
 			}
 		});
 		btnUpdate.setEnabled(false);
@@ -220,9 +227,10 @@ public class TelaCrudProfessorOrientador extends JInternalFrame {
 					txtName.setText(professor.getNome());
 					txtEmail.setText(professor.getEmail());
 					txtPhone.setText(professor.getFone());
+					txtLattes.setText(professor.getLattes());
 					definirEstadoConsulta();
 				} else {
-					JOptionPane.showMessageDialog(null, "Nao existe Professor com esse codigo");
+					JOptionPane.showMessageDialog(null, "Nao existe Professor com esse cpf!");
 				}
 			}
 		});
@@ -245,6 +253,9 @@ public class TelaCrudProfessorOrientador extends JInternalFrame {
 		limparCampos();
 		txtName.setEnabled(false);
 		txtEmail.setEnabled(false);
+		txtCode.setEnabled(false);
+		txtPhone.setEnabled(false);
+		txtLattes.setEnabled(false);
 		btnInsert.setEnabled(true);
 		btnDelete.setEnabled(false);
 		btnUpdate.setEnabled(false);
@@ -255,6 +266,9 @@ public class TelaCrudProfessorOrientador extends JInternalFrame {
 	private void definirEstadoEdicao() {
 		txtName.setEnabled(true);
 		txtEmail.setEnabled(true);
+		txtCode.setEnabled(true);
+		txtPhone.setEnabled(true);
+		txtLattes.setEnabled(true);
 		btnInsert.setEnabled(false);
 		btnDelete.setEnabled(false);
 		btnUpdate.setEnabled(false);
@@ -265,6 +279,9 @@ public class TelaCrudProfessorOrientador extends JInternalFrame {
 	private void definirEstadoConsulta() {
 		txtName.setEnabled(false);
 		txtEmail.setEnabled(false);
+		txtCode.setEnabled(false);
+		txtPhone.setEnabled(false);
+		txtLattes.setEnabled(false);
 		btnInsert.setEnabled(true);
 		btnDelete.setEnabled(true);
 		btnUpdate.setEnabled(true);
@@ -276,5 +293,7 @@ public class TelaCrudProfessorOrientador extends JInternalFrame {
 		txtCode.setText("");
 		txtName.setText("");
 		txtEmail.setText("");
+		txtPhone.setText("");
+		txtLattes.setText("");
 	}
 }

@@ -73,7 +73,7 @@ public class ProfessorOrientador implements Serializable{
 		return Lattes;
 	}
 
-	protected void setLattes(String lattes) {
+	public void setLattes(String lattes) {
 		this.Lattes = lattes;
 	}
 
