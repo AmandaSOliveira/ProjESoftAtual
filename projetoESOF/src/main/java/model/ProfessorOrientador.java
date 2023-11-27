@@ -1,9 +1,11 @@
 package model;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,8 +26,11 @@ public class ProfessorOrientador implements Serializable{
 	@Column(name = "cpf")
 	private String Cpf;
 	
+	@OneToMany(mappedBy = "professor")
+	private List<Aluno> alunos;
+	
 	public ProfessorOrientador(String codigo, String nome, String email, String telefone,
-			String lattes, String cpf) {
+			String lattes, String cpf, List<Aluno> alunos) {
 		super();
 		this.Codigo = codigo;
 		this.Nome = nome;
@@ -33,10 +38,19 @@ public class ProfessorOrientador implements Serializable{
 		this.Telefone = telefone;
 		this.Lattes = lattes;
 		this.Cpf = cpf;
+		this.alunos = alunos;
 	}
 	
 	public ProfessorOrientador() {}
 
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+	
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
+	}
+	
 	public String getCodigo() {
 		return Codigo;
 	}
