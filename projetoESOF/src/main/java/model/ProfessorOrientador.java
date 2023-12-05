@@ -1,6 +1,7 @@
 package model;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "prof_orientador")
-public class ProfessorOrientador implements Serializable{	
+public class ProfessorOrientador implements Serializable, Comparable<ProfessorOrientador>{	
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "cod_prof")
@@ -98,5 +99,37 @@ public class ProfessorOrientador implements Serializable{
 	public void setCpf(String cpf) {
 		this.Cpf = cpf;
 	}
+
+	@Override
+	public String toString() {
+		return Nome;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(Codigo, Cpf);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProfessorOrientador other = (ProfessorOrientador) obj;
+		return Objects.equals(Codigo, other.Codigo) && Objects.equals(Cpf, other.Cpf);
+	}
+
+	@Override
+	public int compareTo(ProfessorOrientador o) {
+		return Nome.compareToIgnoreCase(o.getNome());
+	}
+
 	
 }
+	
+	
+	
+

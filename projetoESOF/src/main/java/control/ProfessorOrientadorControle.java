@@ -30,7 +30,7 @@ public class ProfessorOrientadorControle {
 
 	}
 
-	public void alterar(ProfessorOrientador professor) {
+	public void alterar(ProfessorOrientador professor) throws Exception{
 		try {
 			em.getTransaction().begin();
 			em.merge(professor);
@@ -38,6 +38,7 @@ public class ProfessorOrientadorControle {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			em.getTransaction().rollback();
+			throw ex;
 		}
 	}
 

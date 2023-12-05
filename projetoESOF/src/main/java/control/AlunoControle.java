@@ -30,7 +30,7 @@ public class AlunoControle {
 
 	}
 
-	public void alterar(Aluno aluno) {
+	public void alterar(Aluno aluno) throws Exception{
 		try {
 			em.getTransaction().begin();
 			em.merge(aluno);
@@ -38,6 +38,7 @@ public class AlunoControle {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			em.getTransaction().rollback();
+			throw ex;
 		}
 	}
 

@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "coordenador")
-public class Coordenador implements Serializable {
+public class Coordenador implements Serializable, Comparable<Coordenador> {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "cod_coordenador")
@@ -76,6 +77,33 @@ public class Coordenador implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.Codigo = codigo;
+	}
+	
+	@Override
+	public String toString() {
+		return Nome;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(Codigo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Coordenador other = (Coordenador) obj;
+		return Objects.equals(Codigo, other.Codigo);
+	}
+
+	@Override
+	public int compareTo(Coordenador o) {
+		return Nome.compareToIgnoreCase(o.getNome());
 	}
 
 }

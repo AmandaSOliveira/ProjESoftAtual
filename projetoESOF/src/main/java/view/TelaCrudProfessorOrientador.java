@@ -113,33 +113,43 @@ public class TelaCrudProfessorOrientador extends JInternalFrame {
 				if (txtName.getText().length() < 5) {
 					JOptionPane.showMessageDialog(btnSave, "O nome precisa ter no minimo 5 caracteres!!!");
 				} else {
-					if (controle.buscarPorCodigo(txtCode.getText()) != null) {
-						JOptionPane.showMessageDialog(btnSave, "Já existe um usuário com este cpf!");
-					} else {
-						// novo professor
-						if (professor == null) {
-							professor = new ProfessorOrientador();
-							professor.setNome(txtName.getText());
-							professor.setEmail(txtEmail.getText());
-							professor.setFone(txtPhone.getText());
-							professor.setCodigo(txtCode.getText());
-							professor.setCpf(txtCode.getText());
-							professor.setLattes(txtLattes.getText());
-							// controle.inserir(professor);
+					// novo professor
+					if (professor == null) {
+						professor = new ProfessorOrientador();
+						professor.setNome(txtName.getText());
+						professor.setEmail(txtEmail.getText());
+						professor.setFone(txtPhone.getText());
+						professor.setCodigo(txtCode.getText());
+						professor.setCpf(txtCode.getText());
+						professor.setLattes(txtLattes.getText());
+						try {
+							controle.inserir(professor);
 							JOptionPane.showMessageDialog(btnSave, "professor cadastrado.");
-						} else {
-							// alterar
-							professor.setNome(txtName.getText());
-							professor.setCodigo(txtCode.getText());
-							professor.setEmail(txtEmail.getText());
-							professor.setFone(txtPhone.getText());
-							professor.setCpf(txtCode.getText());
-							professor.setLattes(txtLattes.getText());
+							definirEstadoConsulta();
+						} catch (Exception e1) {
+							JOptionPane.showMessageDialog(btnSave,
+									"Não foi possível cadastrar professor! \n" + e1.getMessage(),
+									"Erro no cadastro do Professor!", JOptionPane.ERROR_MESSAGE);
+						}
+					} else {
+						// alterar
+						professor.setNome(txtName.getText());
+						professor.setCodigo(txtCode.getText());
+						professor.setEmail(txtEmail.getText());
+						professor.setFone(txtPhone.getText());
+						professor.setCpf(txtCode.getText());
+						professor.setLattes(txtLattes.getText());
+						try {
 							controle.alterar(professor);
 							JOptionPane.showMessageDialog(btnSave, "professor atualizado.");
+							definirEstadoConsulta();
+						} catch (Exception e1) {
+							JOptionPane.showMessageDialog(btnSave,
+									"Não foi possível atualizar professor! \n" + e1.getMessage(),
+									"Erro na alteração do Professor!", JOptionPane.ERROR_MESSAGE);
 						}
-						definirEstadoConsulta();
 					}
+
 				}
 			}
 		});
@@ -183,6 +193,7 @@ public class TelaCrudProfessorOrientador extends JInternalFrame {
 		btnInsert = new JButton("Novo");
 		btnInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				professor = null;
 				definirEstadoEdicao();
 				limparCampos();
 				txtCode.requestFocus();

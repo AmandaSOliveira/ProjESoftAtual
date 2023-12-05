@@ -23,7 +23,7 @@ import java.awt.event.MouseEvent;
 
 public class TelaPrincipal {
 
-	private JFrame frmSistemaDeVeterinria;
+	private JFrame frmInternPro;
 
 	/**
 	 * Launch the application.
@@ -33,7 +33,7 @@ public class TelaPrincipal {
 			public void run() {
 				try {
 					TelaPrincipal window = new TelaPrincipal();
-					window.frmSistemaDeVeterinria.setVisible(true);
+					window.frmInternPro.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,46 +53,57 @@ public class TelaPrincipal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmSistemaDeVeterinria = new JFrame();
-		frmSistemaDeVeterinria.setTitle("Sistema de Veterin\u00E1ria");
-		frmSistemaDeVeterinria.setBounds(100, 100, 450, 300);
-		frmSistemaDeVeterinria.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmSistemaDeVeterinria.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frmSistemaDeVeterinria.getContentPane().setLayout(null);
+		frmInternPro = new JFrame();
+		frmInternPro.setTitle("InternPro");
+		frmInternPro.setBounds(100, 100, 450, 300);
+		frmInternPro.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmInternPro.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frmInternPro.getContentPane().setLayout(null);
 		
 		final JDesktopPane desktop = new JDesktopPane();
 		desktop.setBounds(0, 0, 1350, 658);
 		desktop.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		frmSistemaDeVeterinria.getContentPane().add(desktop);
+		frmInternPro.getContentPane().add(desktop);
 		
 		JMenuBar barraMenu = new JMenuBar();
 		barraMenu.setBounds(0, 0, 434, 22);
-		frmSistemaDeVeterinria.setJMenuBar(barraMenu);
+		frmInternPro.setJMenuBar(barraMenu);
 		
 		JMenu menuCadastrar = new JMenu("Cadastro");
 		barraMenu.add(menuCadastrar);
 		
-		JMenuItem menuUsuario = new JMenuItem("Professor Orientador");
-		menuUsuario.addActionListener(new ActionListener() {
+		JMenuItem menuProfessor = new JMenuItem("Professor Orientador");
+		menuProfessor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaCrudProfessorOrientador tela = new TelaCrudProfessorOrientador();
 				tela.setVisible(true);
 				desktop.add(tela);
 			}
 		});
-		menuUsuario.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.ALT_DOWN_MASK));
-		menuCadastrar.add(menuUsuario);
+		menuProfessor.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.ALT_DOWN_MASK));
+		menuCadastrar.add(menuProfessor);
 		
-		JMenuItem menuVeterinario = new JMenuItem("Coordenador");
-		menuVeterinario.addActionListener(new ActionListener() {
+		JMenuItem menuCoordenador = new JMenuItem("Coordenador");
+		menuCoordenador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaCrudCoordenador tela = new TelaCrudCoordenador();
 				tela.setVisible(true);
 				desktop.add(tela);
 			}
 		});
-		menuVeterinario.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.ALT_DOWN_MASK));
-		menuCadastrar.add(menuVeterinario);
+		menuCoordenador.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_DOWN_MASK));
+		menuCadastrar.add(menuCoordenador);
+		
+		JMenuItem menuAluno = new JMenuItem("Aluno");
+		menuAluno.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.ALT_DOWN_MASK));
+		menuAluno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCrudAluno tela = new TelaCrudAluno();
+				tela.setVisible(true);
+				desktop.add(tela);
+			}
+		});
+		menuCadastrar.add(menuAluno);
 		
 		JMenu menuConsultar = new JMenu("Consulta");
 		barraMenu.add(menuConsultar);

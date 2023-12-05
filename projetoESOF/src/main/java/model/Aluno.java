@@ -13,6 +13,8 @@ import javax.persistence.Table;
 public class Aluno implements Serializable{	
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(name = "matricula")
+	private String Matricula;
 	@Column(name = "cpf")
 	private String Cpf;
 	@Column(name = "nome_aluno")
@@ -24,7 +26,7 @@ public class Aluno implements Serializable{
 	@Column(name = "curriculo")
 	private String Curriculo;
 	@Column(name = "cod_curso")
-	private String Curso;
+	private String CodigoCurso;
 
 	
 	@ManyToOne
@@ -36,7 +38,7 @@ public class Aluno implements Serializable{
 	private Coordenador coordenador;
 
 	public Aluno(String nome, String email, String telefone,
-			String curriculo, String cpf) {
+			String curriculo, String cpf, String codigoCurso) {
 		super();
 		this.Cpf = cpf;
 		this.Nome = nome;
@@ -44,8 +46,17 @@ public class Aluno implements Serializable{
 		this.Telefone = telefone;
 		this.Curriculo = curriculo;
 		this.Cpf = cpf;
+		this.CodigoCurso = codigoCurso;
 	}
 	
+	public String getCodigoCurso() {
+		return CodigoCurso;
+	}
+
+	public void setCodigoCurso(String codigoCurso) {
+		CodigoCurso = codigoCurso;
+	}
+
 	public Aluno() {}
 
 	public String getCpf() {
@@ -54,6 +65,14 @@ public class Aluno implements Serializable{
 
 	public void setCpf(String cpf) {
 		this.Cpf = cpf;
+	}
+	
+	public String getMatricula() {
+		return Matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.Matricula = matricula;
 	}
 
 	public String getNome() {
@@ -87,14 +106,6 @@ public class Aluno implements Serializable{
 
 	public void setCurriculo(String lattes) {
 		this.Curriculo = lattes;
-	}	
-	
-	public String getCurso() {
-		return Curso;
-	}
-
-	public void setCurso(String curso) {
-		this.Curso = curso;
 	}	
 	
 	public ProfessorOrientador getProfessor() {

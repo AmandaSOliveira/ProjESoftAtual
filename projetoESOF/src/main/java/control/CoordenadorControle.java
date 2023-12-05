@@ -16,7 +16,7 @@ public class CoordenadorControle {
 		em = emf.createEntityManager();
 	}
 	
-	public void inserir(Coordenador coordenador) {
+	public void inserir(Coordenador coordenador) throws Exception{
 		 try {
 	            em.getTransaction().begin();
 	            em.persist(coordenador);
@@ -24,10 +24,11 @@ public class CoordenadorControle {
 	         } catch (Exception ex) {
 	            ex.printStackTrace();
 	            em.getTransaction().rollback();
+	            throw ex;
 	         }
 	}
 	
-	public void alterar(Coordenador coordenador) {
+	public void alterar(Coordenador coordenador) throws Exception{
 		 try {
 	            em.getTransaction().begin();
 	            em.merge(coordenador);
@@ -35,6 +36,7 @@ public class CoordenadorControle {
 	         } catch (Exception ex) {
 	            ex.printStackTrace();
 	            em.getTransaction().rollback();
+	            throw ex;
 	         }
 	}
 	

@@ -121,27 +121,36 @@ public class TelaCrudCoordenador extends JInternalFrame {
 				if (txtName.getText().length() < 5) {
 					JOptionPane.showMessageDialog(btnSave, "O nome precisa ter no minimo 5 caracteres!!!");
 				} else {
-					if (controle.buscarPorCodigo(txtCode.getText()) != null) {
-						JOptionPane.showMessageDialog(btnSave, "Já existe um usuário com este cpf!");
-					} else {
-						// novo coordenador
-						if (coordenador == null) {
-							coordenador = new Coordenador();
-							coordenador.setNome(txtName.getText());
-							coordenador.setEmail(txtEmail.getText());
-							coordenador.setTelefone(txtPhone.getText());
-							coordenador.setCodigo(txtCode.getText());
+					// novo coordenador
+					if (coordenador == null) {
+						coordenador = new Coordenador();
+						coordenador.setNome(txtName.getText());
+						coordenador.setEmail(txtEmail.getText());
+						coordenador.setTelefone(txtPhone.getText());
+						coordenador.setCodigo(txtCode.getText());
+						try {
 							controle.inserir(coordenador);
 							JOptionPane.showMessageDialog(btnSave, "Coordenador cadastrado.");
-						} else {
-							// alterar
-							coordenador.setNome(txtName.getText());
-							coordenador.setEmail(txtEmail.getText());
-							coordenador.setTelefone(txtPhone.getText());
+							definirEstadoConsulta();
+						} catch (Exception e1) {
+							JOptionPane.showMessageDialog(btnSave,
+									"Não foi possível cadastrar coordenador! \n" + e1.getMessage(),
+									"Erro no cadastro de Coordenador!", JOptionPane.ERROR_MESSAGE);
+						}
+					} else {
+						// alterar
+						coordenador.setNome(txtName.getText());
+						coordenador.setEmail(txtEmail.getText());
+						coordenador.setTelefone(txtPhone.getText());
+						try {
 							controle.alterar(coordenador);
 							JOptionPane.showMessageDialog(btnSave, "Coordenador atualizado.");
+							definirEstadoConsulta();
+						} catch (Exception e1) {
+							JOptionPane.showMessageDialog(btnSave,
+									"Não foi possível atualizar coordenador! \n" + e1.getMessage(),
+									"Erro na alteração do Coordenador!", JOptionPane.ERROR_MESSAGE);
 						}
-						definirEstadoConsulta();
 					}
 				}
 			}
@@ -166,6 +175,7 @@ public class TelaCrudCoordenador extends JInternalFrame {
 		btnInsert = new JButton("Novo");
 		btnInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				coordenador = null;
 				definirEstadoEdicao();
 				limparCampos();
 				txtCode.requestFocus();
